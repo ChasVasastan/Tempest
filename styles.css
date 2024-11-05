@@ -44,8 +44,6 @@ canvas {
   height: 100%;
 }
 
-header {}
-
 nav img {
   width: 60px;
 }
@@ -82,9 +80,6 @@ nav a:focus {
 
 .push {
   margin-left: auto;
-}
-
-#id {
 }
 
 nav a:hover {
@@ -151,4 +146,3 @@ nav a:hover {
 #myChart {
   background-color: white;
 }
-
