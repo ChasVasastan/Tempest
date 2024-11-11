@@ -6,7 +6,9 @@ html,
 body {
   height: 100%;
   margin: 0;
-}
+  display: flex;
+  flex-direction: column;
+  }
 
 body {
   background-color: #E4EAF2;
@@ -48,7 +50,6 @@ nav {
   justify-content: start;
   background-color: #1f1f1f;
   padding: 8px;
-
 }
 
 nav h1 {
@@ -90,6 +91,9 @@ nav a:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 
 .footer-section {
