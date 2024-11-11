@@ -3,23 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/content/logo.webp">
     <link rel='stylesheet' href='styles.css'/>
     <title>Tempest</title>
 </head>
 <body>
   <header>
     <nav>
-        <h2>TEMPEST</h2>
+        <img src="/content/logo.webp" alt="logo">
+        <h1>TEMPEST</h1>
         <a class="active push" href="index.html">Home</a>
         <a href="data/temperature.csv">Data</a>
         <a href="news.html">News</a>
         <a href="about.html">About</a>
     </nav>
   </header>
+
   <main>
-    
-    <canvas id="myChart"></canvas>
+    <div class="chart-container">
+      <div class="controls">
+          <input type="date" name="start-date" id="">
+          <input type="date" name="end-date" id="">
+      </div>
+      <canvas id="myChart"></canvas>
+    </div>
   </main>
+
   <footer class="footer">
     <div class="footer-section">
       <h4>SKAPARE</h4>
@@ -53,5 +62,4 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
-
 </html>
