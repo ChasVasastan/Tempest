@@ -39,32 +39,35 @@ document.getElementById('date-end').addEventListener('change', (event) => {
   chart.update();
 });
 
-
+// Get temperature data and populate chart
 fetch('data/temperature.csv')
   .then(response => response.text())
   .then(text => {
-    let data = fromCSV(text);
+    const data = fromCSV(text);
     let places = new Map();
 
-    for (let entry of data) {
+    // Load data
+    for (const entry of data) {
       places[entry.Country] ||= new Map();
       places[entry.Country][entry.City] ||= [];
-      const date = new Date(entry.year, entry.month, entry.day);
 
-      let value = parseFloat(entry.AverageTemperatureFahr);
+      const entryDate = new Date(entry.year, entry.month, entry.day);
+      const fahrenheit = parseFloat(entry.AverageTemperatureFahr);
       places[entry.Country][entry.City].push({
-        x: date.getTime(),
-        y: convertFahrenheitToCelsius(value)
+        x: entryDate.getTime(),
+        y: convertFahrenheitToCelsius(fahrenheit)
       });
     }
 
+    // Populate chart
     let dataset = [];
-    for (let country in places) {
-      for (let city in places[country]) {
+    for (const country in places) {
+      for (const city in places[country]) {
+        places[country][city].sort((a,b) => a.x - b.x);
         dataset.push({
           label: `${country}/${city}`,
           hidden: true,
-          data: places[country][city].sort((a,b) => a.x - b.x),
+          data: places[country][city],
           borderWidth: 1,
         });
       }
@@ -73,21 +76,19 @@ fetch('data/temperature.csv')
     dataset.sort((a,b) => a.label.localeCompare(b.label));
     dataset[0].hidden = false;
     dataset[1].hidden = false;
-
-    console.log(dataset);
     config.data.datasets = dataset;
     chart.update();
   });
 
 function fromCSV(text) {
   // Split into lines and filter out empty lines
-  let lines = text.split('\n').filter(Boolean);
+  const lines = text.split('\n').filter(Boolean);
+  const headers = removeQuotes(lines[0].split(','));
   let objects = [];
-  let headers = removeQuotes(lines[0].split(','));
   for (let i = 1; i < lines.length; i++) {
-    let line = removeQuotes(lines[i].split(','));
+    const line = removeQuotes(lines[i].split(','));
     let entry = {};
-    for (let col in headers) {
+    for (const col in headers) {
       entry[headers[col]] = line[col];
     }
     objects.push(entry);
