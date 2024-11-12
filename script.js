@@ -2,6 +2,8 @@ const ctx = document.getElementById('myChart');
 const config = {
   type: 'line',
   options: {
+    animation: false,
+    parsing: false,
     plugins: {
       legend: {
         position: 'right',
